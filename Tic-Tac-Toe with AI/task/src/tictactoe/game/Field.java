@@ -8,41 +8,24 @@ public class Field {
     private final HashSet<Integer> emptyCells = new HashSet<>();
     private final int SIZE = 3;
     private final Pattern SET_FIELD_PATTERN;
-    private int xCount;
-    private int oCount;
     private char lastMove;
 
     public Field() {
         this.field = new char[SIZE][SIZE];
         generateField();
         SET_FIELD_PATTERN = Pattern.compile("^[XO_]{9}$");
-        xCount = 0;
-        oCount = 0;
     }
 
-    protected void setCell(int x, int y) {
-        char c;
-        if (xCount > oCount) {
-            c = 'O';
-            oCount++;
-        } else {
-            c = 'X';
-            xCount++;
-        }
+    protected void setCell(int x, int y, char c) {
         this.lastMove = c;
-
         field[x - 1][y - 1] = c;
         emptyCells.remove(x * SIZE + y);
     }
 
-    protected void checkRows(Boolean lastCheck) {
+    protected void checkRows() {
         if (emptyCells.isEmpty()) {
             System.out.println("Draw");
             System.exit(0);
-        } else {
-            if (lastCheck) {
-                System.out.println("Game not finished");
-            }
         }
         if (field[0][0] == field[0][1] && field[0][1] == field[0][2] && field[0][0] != ' '
                 || field[1][0] == field[1][1] && field[1][1] == field[1][2] && field[1][0] != ' '
@@ -73,11 +56,6 @@ public class Field {
                 char c = initialFieldState.charAt(i * SIZE + j);
                 if (c != '_') {
                     field[i][j] = c;
-                    if (c == 'X') {
-                        xCount++;
-                    } else {
-                        oCount++;
-                    }
                 }
             }
         }
