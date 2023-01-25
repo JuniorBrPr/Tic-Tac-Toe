@@ -21,7 +21,7 @@ public class AI extends Player {
         switch (difficulty) {
             case "easy" -> easy();
             case "medium" -> mediumAlt();
-//            case "hard" -> hard();
+            case "hard" -> medium();
         }
     }
 
@@ -129,7 +129,6 @@ public class AI extends Player {
                 if (field.getField()[i][j] == ' ') {
                     field.setCell(i + 1, j + 1, playerSymbol);
                     int moveVal = minimax(field.getField(), 0, false);
-                    System.out.println(moveVal);
                     field.setCell(i + 1, j + 1, ' ');
                     if (moveVal > bestVal) {
                         bestMove[0] = i + 1;
@@ -141,13 +140,8 @@ public class AI extends Player {
         }
         System.out.println(Arrays.toString(bestMove) + " " + bestVal);
         System.out.println(Arrays.deepToString(field.getField()));
-        if (bestVal != -10 && bestVal != 10 && field.getMoves() < 8 && bestVal == 0) {
-            makeRandomMove();
-        } else if (bestVal == -10) {
-            field.setCell(bestMove[0], bestMove[1], playerSymbol);
-        } else {
-            field.setCell(bestMove[0], bestMove[1], playerSymbol);
-        }
+        field.setCell(bestMove[0], bestMove[1], playerSymbol);
+
     }
 
     private void mediumAlt() {

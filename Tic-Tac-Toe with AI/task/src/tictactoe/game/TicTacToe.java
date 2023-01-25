@@ -12,7 +12,7 @@ public class TicTacToe {
     public TicTacToe() {
         this.field = new Field();
         this.in = new Scanner(System.in);
-        this.pattern = Pattern.compile("user|easy|medium");
+        this.pattern = Pattern.compile("user|easy|medium|hard");
     }
 
     public void menu(){
