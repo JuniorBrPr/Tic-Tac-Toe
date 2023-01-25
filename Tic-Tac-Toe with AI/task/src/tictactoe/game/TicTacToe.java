@@ -12,7 +12,7 @@ public class TicTacToe {
     public TicTacToe() {
         this.field = new Field();
         this.in = new Scanner(System.in);
-        this.pattern = Pattern.compile("user|easy");
+        this.pattern = Pattern.compile("user|easy|medium");
     }
 
     public void menu(){
@@ -40,9 +40,9 @@ public class TicTacToe {
 
     private void startGame(String playerType1, String playerType2){
         Player player1 = Objects.equals(playerType1, "user") ? new User(field, 'X', in) :
-                new AI(field, 'X');
+                new AI(field, 'X', playerType1);
         Player player2 = Objects.equals(playerType2, "user") ? new User(field, 'O', in) :
-                new AI(field, 'O');
+                new AI(field, 'O', playerType2);
        play(player1, player2);
     }
 
@@ -52,9 +52,11 @@ public class TicTacToe {
             System.out.println(field);
             field.checkRows();
             player1.makeMove();
+            field.incrementMove();
             System.out.println(field);
             field.checkRows();
             player2.makeMove();
+            field.incrementMove();
         } while (true);
     }
 }
